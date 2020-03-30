@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{clrscode3e}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsthm,amssymb}
+\usepackage{color}
+\usepackage[shortlabels]{enumitem}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+
+\setlength{\parskip}{2mm}
+\setlength{\parindent}{0mm}
+
+\newcommand{\titlebox}[4]{
+    \begin{center}
+        \framebox{
+            \vbox{
+            \hbox to \textwidth { #1 \hfill #3}
+            \vspace{-4mm}
+            \hbox to \textwidth {\hfill \Large \bf #2 \hfill}
+            \hbox to \textwidth { {\it \hfill Due #4 \hfill} }
+        }
+    }
+    \end{center}
+}
+
+
+\newcommand{\matr}[1]{\mathbf{#1}}
+
+
+\begin{document}
+
+\titlebox{CSC 383}
+{Homework 5}
+{\textcolor{red}{your names go here}} % replace this line with: {your names} (and remove \textcolor command)
+{April 3\textsuperscript{rd}, 2020}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Problem 1}
+
+A symmetric game is one where any permutation to the order of the players (e.g. swapping players 1 and 2) does not change the game.
+For such permutations to have no effect, it must be the case that all players have identical action sets, and that the payoff to any outcome depends only on \emph{how many} players select each action, not which specific players chose an action.
+
+A corollary of Nash's theorem that appears in Nash's original 1951 paper is that every symmetric game has a symmetric Nash equilibrium.
+In a symmetric game, a mixed-strategy profile is symmetric if all players are following the same mixed strategy.
+To prove this corollary, we will take a different approach, based on the symmetric replicator dynamics function.
+
+When running replicator dynamics on a symmetric game to search for a symmetric equilibrium, we don't need to keep track of separate strategies for each player.
+Instead, we can use a single mixed strategy, that will be played by all players, to represent the profile.
+We can then treat the update done on each round of replicator dynamics as a function that maps a mixed strategy to a mixed strategy.
+We will use this function to prove the existence of symmetric equilibria in symmetric games.
+
+\begin{enumerate}[(a)]
+
+\item
+Define as a mathematical function the update performed by one iteration of replicator dynamics.
+
+\fbox{
+\begin{minipage}{\textwidth}
+
+\textcolor{red}{Your Problem 1a solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
+\vspace{90mm} %delete this line
+
+\end{minipage}
+}
+
+\item
+Prove that a mixed strategy is a symmetric Nash equilibrium if and only if it is a fixed point of this function.
+
+\fbox{
+\begin{minipage}{\textwidth}
+
+\textcolor{red}{Your Problem 1b solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
+\vspace{200mm} %delete this line
+
+\end{minipage}
+}
+
+\item
+Use Brouwer's fixed-point theorem to show that this function must have at least one fixed point.
+
+\fbox{
+\begin{minipage}{\textwidth}
+
+\textcolor{red}{Your Problem 1c solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
+\vspace{130mm} %delete this line
+
+\end{minipage}
+}
+
+\end{enumerate}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Problem 2}
+
+In the Jupyter notebook \texttt{nash\_learning.ipynb} implement the following functions:
+
+\begin{itemize}
+\item \texttt{fictitious\_play}
+\item \texttt{replicator\_dynamics}
+\item \texttt{random\_profile}
+\item \texttt{RD\_random\_restarts}
+\end{itemize}
+
+Note that the version of replicator dynamics your are implementing is the asymmetric version, and is therefore not identical to the function you used in problem 1.
+A function for plotting the traces of replicator dynamics and fictitious play will be available soon.
+
+
+\end{document}
