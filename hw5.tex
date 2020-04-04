@@ -7,6 +7,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{mathtools}
 
 
 \setlength{\parskip}{2mm}
@@ -33,7 +34,7 @@
 
 \titlebox{CSC 383}
 {Homework 5}
-{\textcolor{red}{your names go here}} % replace this line with: {your names} (and remove \textcolor command)
+{Zach Nussbaum and Aidan O'Neill} % replace this line with: {your names} (and remove \textcolor command)
 {April 3\textsuperscript{rd}, 2020}
 
 
@@ -61,9 +62,8 @@ Define as a mathematical function the update performed by one iteration of repli
 \fbox{
 \begin{minipage}{\textwidth}
 
-\textcolor{red}{Your Problem 1a solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
-\vspace{90mm} %delete this line
-
+$$ \sigma '(a^1) = \sigma(a_i)\frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{\sum_{a_j\in A}\sigma(a_j)[\mathbb{E}u(a_j, \sigma_{-i})-offset]} $$
+We note that this is a symmetric game, so we need not iterate over different players, as the utilities are the same for each player.  We combine the update per weight and the normalization into one step, and represent the \texttt{DevPay} function with expected value notation.  
 \end{minipage}
 }
 
@@ -72,10 +72,25 @@ Prove that a mixed strategy is a symmetric Nash equilibrium if and only if it is
 
 \fbox{
 \begin{minipage}{\textwidth}
-
-\textcolor{red}{Your Problem 1b solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
-\vspace{200mm} %delete this line
-
+We decompose the $\iff$ into two parts: the $\Rightarrow$ and $\Leftarrow$.  \\
+$\Rightarrow$: \textbf{Claim:} If a mixed strategy is a symmetric Nash equilibrium, it is a fixed point of this function.\\ \textbf{Proof:} 
+Consider the update performed by the replicator dynamics function on a mixed strategy Nash equilibrium, $\sigma(a_i)$.
+\begin{align*}
+\sigma '(a^1) &= \sigma(a_i)\frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{\sum_{a_j\in A}\sigma(a_j)[\mathbb{E}u(a_j, \sigma_{-i})-offset]}\\
+\shortintertext{As this is a Nash Equilibrium, we know that $\mathbb{E}u(a_1, \sigma_{-i})$ is equal for all strategies that we mix between.  Factoring, we get}
+\sigma '(a^1) &= \sigma(a_i)\frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{[\mathbb{E}u(a_j, \sigma_{-i})-offset]\sum_{a_j\in A}\sigma(a_j)}
+\shortintertext{As $\sum_{a_j\in A}\sigma(a_j)$ is 1}
+\sigma '(a^1) &= \sigma(a_i)\frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{[\mathbb{E}u(a_j, \sigma_{-i})-offset]}\\
+\sigma '(a^1) &= \sigma(a_i)
+\end{align*}
+As the update performed by the replicator dynamic function does not change the mixed strategy profile, we have a fixed point.  \\
+$\Leftarrow$: \textbf{Claim:} If the replicator dynamics function results does not change the mixed strategy profile, the mixed strategy profile is a Nash equilibrium.  \\ \textbf{Proof:} 
+If the replicator dynamics function does not change the mixed strategy profile, and because we only consider those actions which we mix between with positive utility, we have that
+\begin{align*}
+1 &= \frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{\sum_{a_j\in A}\sigma(a_j)[\mathbb{E}u(a_j, \sigma_{-i})-offset]}\\
+{\sum_{a_j\in A}\sigma(a_j)[\mathbb{E}u(a_j, \sigma_{-i})-offset]} &= [\mathbb{E}u(a_1, \sigma_{-i})-offset]
+\end{align*}
+We proceed by contradiction.  If this is not a Nash equilibrium, we know that the payoff one player would receive by deviating to one action is distinct from the payoff that same player would receive by deviating to another action; if they are indifferent between all actions they mix between, it is necessarily a Nash equilibrium.  Thus, there is some payoff deviation, $\mathbb{E}u(a_l, \sigma_{-i})$, which is smallest.  As, by our assumption, we know that there is at least one deviation payoff in the sum greater than $\mathbb{E}u(a_l, \sigma_{-i})$ and all of the terms are at least $\mathbb{E}u(a_l, \sigma_{-i})$, we know that our equality above does not hold, a contradiction.  Thus, if the replicator dynamics function does not change the mixed strategy profile, the mixed strategy profile is a Nash equilibrium.  \boxed{}
 \end{minipage}
 }
 
@@ -84,10 +99,21 @@ Use Brouwer's fixed-point theorem to show that this function must have at least 
 
 \fbox{
 \begin{minipage}{\textwidth}
-
-\textcolor{red}{Your Problem 1c solution goes here}. %Replace the contents of this minipage with your answer (delete this whole line).
-\vspace{130mm} %delete this line
-
+For Brouwer's fixed-point theorem to apply to a function $f: S\rightarrow S$, we need for f to be continuous that maps $S$, a compact, convex set to itself.  We define $f$ as $f: \sigma(a_i)\frac{[\mathbb{E}u(a_1, \sigma_{-i})-offset]}{\sum_{a_j\in A}\sigma(a_j)[\mathbb{E}u(a_j, \sigma_{-i})-offset]} $
+In addition, $S$ is the simplotope of all mixed-strategy profiles in the game.  
+\begin{enumerate}
+    \item $S$ is bounded as all coordinates lie within the hypercube with dimension $\mathbb{R}^{|A|}$.  
+    \item $S$ is closed because 0 and 1 are valid probabilities so the set contains its boundary.  
+    \item Consider two strategy profiles $\sigma_1$ and $\sigma_2$.  We show that their convex combination, $\sigma'$ is another valid strategy profile.  
+        $\sigma' = u\sigma_1 + v\sigma_2$ for some $u$ and $v$ such that $u +v=1$ and $u, v\geq 0$.  Thus, 
+        \begin{align*}
+        \sigma' &= u\sigma_1 + (1-u)\sigma_2\\
+        \sigma' &= u\sigma_1 + sigma_2 - u\sigma_2
+        \end{align*}
+        $\sigma'$ is clearly still a vector in $\mathbb{R}^{|A|}$.  As every element in $\sigma_1$ and $\sigma_2$ is nonnegative and $u$ and $v$ are nonnegative, we know that every element in $\sigma'$ is nonnegative.  Finally, $\sum_{a\in A} \sigma_1 = \sum_{a\in A} \sigma_2 = 1$, so $\sum_{a\in A}sigma' = u\cdot 1 + 1 - u\cdot 1 = 1$.  It follows that the convex combination of valid strategy profiles is a strategy profile, and $S$ is therefore a convex set.   
+    \item Consider our function $f$.  We note that utility functions are continuous so $\mathbb{E}u(a_1, \sigma_{-i})$ is continuous.  In addition, offsets are constant and subtracting by an offset preserves continuity.  Finally, dividing by a continuous function by something preserves continuity so long as the denominator is not 0, which, because the sum of the action probabilities in a mixed strategy profile is always 1, our denominator never is.  Thus, we have that $f$ is continuous. 
+\end{enumerate}
+Thus, we have that the function the update performed by one iteration of replicator dynamics meets the criteria for the Brouwer's fixed-point theorem, so there must be a fixed point; this fixed point corresponds to a Nash equilibrium.  \boxed{}
 \end{minipage}
 }
 
